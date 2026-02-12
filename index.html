@@ -83,12 +83,12 @@ background:linear-gradient(to bottom,#ffffff 40%,#ffcce0 100%);
 filter:drop-shadow(0 0 10px rgba(255,100,150,0.3));
 letter-spacing:1px;
 animation:respirar 4s ease-in-out infinite;
-position: relative; /* Añadido para posicionar el brillo */
-padding-bottom: 15px;
+padding-bottom:15px;
 }
 
-/* El brillo decorativo solo debajo de los títulos */
-h1::after, h2::after{
+/* SOLO títulos principales */
+section > h1::after,
+section > h2::after{
 content:"";
 display:block;
 width:80px;
@@ -123,8 +123,6 @@ transition:1s;
 z-index:25;
 position:relative;
 }
-
-/* Eliminamos el section::after que creaba el brillo extra al final de cada sección */
 
 section.visible{
 opacity:1;
@@ -205,7 +203,7 @@ border-radius:50px;
 border:1px solid rgba(255,255,255,0.2);
 cursor:pointer;
 }
-  
+
 .btn-abrir:hover{
 transform:scale(1.1);
 box-shadow:0 0 35px rgba(255,120,160,0.6);
@@ -222,22 +220,22 @@ margin:20px 0;
 cursor:pointer;
 }
 
+/* mejora visual pregunta */
+.pregunta-box{
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.15);
+backdrop-filter:blur(12px);
+padding:40px;
+border-radius:30px;
+box-shadow:0 0 40px rgba(255,80,140,0.1);
+}
+
 .bokeh{position:fixed;border-radius:50%;pointer-events:none;z-index:5;filter:blur(3px);}
 .flor{position:fixed;pointer-events:none;z-index:110;transform:rotate(45deg);
 background:linear-gradient(180deg,rgba(255,50,90,0.8),rgba(255,100,150,0.6));}
 .flor::before,.flor::after{content:"";position:absolute;width:100%;height:100%;background:inherit;border-radius:50%;}
 .flor::before{top:-50%;}
 .flor::after{left:-50%;}
-
-#start h1{
-animation: aparecerTitulo 1.8s ease forwards;
-}
-
-@keyframes aparecerTitulo{
-0%{opacity:0; transform:translateY(30px);}
-100%{opacity:1; transform:translateY(0);}
-}
-
 </style>
 </head>
 
@@ -257,17 +255,14 @@ animation: aparecerTitulo 1.8s ease forwards;
 
 <section>
 <h1>Hola amor de mi vida</h1>
-
 <p style="opacity:0.85;max-width:550px;line-height:1.8;font-size:1.1rem;">
 Este pequeño detalle es para ti, porque eres mi mundo entero y quiero hacertelo saber.
 </p>
- 
 <div style="opacity:0.8; line-height:1.8; font-style:italic;">
 <p>✨ tu risa es mi sonido favorito</p>
 <p>✨ contigo todo se siente más fácil</p>
 <p>✨ gracias por existir en mi vida</p>
 </div>
-
 </section>
 
 <section>
@@ -290,6 +285,7 @@ Cada segundo a tu lado es como estar en un sueño del que no quiero despertar.
 </section>
 
 <section id="pregunta">
+<div class="pregunta-box">
 <p style="opacity:0.85;max-width:550px;line-height:1.8;font-size:1.1rem;">
 Necesito preguntarte algo importante...
 </p>
@@ -297,6 +293,7 @@ Necesito preguntarte algo importante...
 <div class="btn-container">
 <button id="yes" class="btn-sanval" onclick="aceptar()">¡Claro que Sí! 💖</button>
 <button id="no" class="btn-sanval" onmouseover="mover(this)">No pipipi 😢</button>
+</div>
 </div>
 </section>
 
@@ -363,7 +360,7 @@ btn.style.top=Math.max(padding,Math.floor(Math.random()*maxY))+"px";
 
 function revelarNota(card){
 const texto=card.querySelector('#nota-texto');
-texto.innerText='No parece que haya pasado tanto tiempo, pero este es el tercer San valentin desde que nos conocemos y nunca había estado tan enamorado de ti como hoy lo estoy. ';
+texto.innerText='No parece que haya pasado tanto tiempo, pero este es el tercer San valentin desde que nos conocemos y nunca había estado tan enamorado de ti como hoy lo estoy.';
 texto.style.fontStyle="normal";
 texto.style.fontSize="1.2rem";
 texto.style.opacity=1;
