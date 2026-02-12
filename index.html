@@ -83,19 +83,21 @@ background:linear-gradient(to bottom,#ffffff 40%,#ffcce0 100%);
 filter:drop-shadow(0 0 10px rgba(255,100,150,0.3));
 letter-spacing:1px;
 animation:respirar 4s ease-in-out infinite;
+position: relative; /* Añadido para posicionar el brillo */
+padding-bottom: 15px;
 }
-  
+
+/* El brillo decorativo solo debajo de los títulos */
 h1::after, h2::after{
 content:"";
 display:block;
 width:80px;
 height:2px;
-margin:15px auto 0 auto;
+margin:10px auto 0 auto;
 background:linear-gradient(90deg, transparent, rgba(255,120,160,0.8), transparent);
 border-radius:10px;
 opacity:0.7;
 }
-
 
 h1{font-size:clamp(2.8rem,5vw,4rem);}
 h2{font-size:clamp(2.2rem,4vw,3rem);}
@@ -121,16 +123,8 @@ transition:1s;
 z-index:25;
 position:relative;
 }
-  
-section::after{
-content:"";
-width:120px;
-height:2px;
-background:linear-gradient(90deg,transparent,rgba(255,100,150,0.6),transparent);
-margin-top:10px;
-opacity:0.6;
-}
 
+/* Eliminamos el section::after que creaba el brillo extra al final de cada sección */
 
 section.visible{
 opacity:1;
@@ -211,7 +205,7 @@ border-radius:50px;
 border:1px solid rgba(255,255,255,0.2);
 cursor:pointer;
 }
-  
+  
 .btn-abrir:hover{
 transform:scale(1.1);
 box-shadow:0 0 35px rgba(255,120,160,0.6);
@@ -267,7 +261,7 @@ animation: aparecerTitulo 1.8s ease forwards;
 <p style="opacity:0.85;max-width:550px;line-height:1.8;font-size:1.1rem;">
 Este pequeño detalle es para ti, porque eres mi mundo entero y quiero hacertelo saber.
 </p>
- 
+ 
 <div style="opacity:0.8; line-height:1.8; font-style:italic;">
 <p>✨ tu risa es mi sonido favorito</p>
 <p>✨ contigo todo se siente más fácil</p>
