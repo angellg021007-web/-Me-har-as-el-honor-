@@ -18,11 +18,6 @@ color:white;
 font-family:'Poppins',sans-serif;
 overflow-x:hidden;
 scroll-behavior:smooth;
-transition:background 1.5s;
-}
-
-body.momento{
-background:#0a0510;
 }
 
 .proyector{
@@ -54,27 +49,6 @@ background:radial-gradient(circle,rgba(255,100,130,0.15),transparent 70%);
 mix-blend-mode:screen;
 z-index:20;
 }
-
-.corazon{
-position:fixed;
-width:10px;
-height:10px;
-background:pink;
-transform:rotate(45deg);
-pointer-events:none;
-z-index:200;
-opacity:0.8;
-}
-.corazon::before,.corazon::after{
-content:"";
-position:absolute;
-width:100%;
-height:100%;
-background:inherit;
-border-radius:50%;
-}
-.corazon::before{top:-50%;}
-.corazon::after{left:-50%;}
 
 .fade{
 position:fixed;
@@ -282,34 +256,15 @@ Este pequeño detalle es para ti, porque eres mi mundo entero y quiero hacertelo
 
 <script>
 const luz=document.getElementById("luz");
-
 document.addEventListener("mousemove",(e)=>{
 luz.style.transform=`translate3d(${e.clientX-175}px,${e.clientY-175}px,0)`;
-if(document.body.classList.contains("momento")){
-crearCorazon(e.clientX,e.clientY);
-}
 });
-
-function crearCorazon(x,y){
-const c=document.createElement("div");
-c.className="corazon";
-c.style.left=x+"px";
-c.style.top=y+"px";
-c.animate([{transform:'translateY(0) scale(1)',opacity:1},
-{transform:'translateY(-40px) scale(0.5)',opacity:0}],
-{duration:800});
-document.body.appendChild(c);
-setTimeout(()=>c.remove(),800);
-}
 
 function mostrar(){
 document.getElementById("start").style.display="none";
 document.getElementById("contenido").style.display="block";
 document.querySelectorAll('#contenido section').forEach((sec,i)=>{
-setTimeout(()=>{
-sec.classList.add('visible');
-if(sec.id==="pregunta"){document.body.classList.add("momento");}
-},i*200);
+setTimeout(()=>sec.classList.add('visible'),i*200);
 });
 iniciarParticulas();
 }
@@ -357,13 +312,13 @@ b.style.background="rgba(255,255,255,0.1)";
 b.animate([{transform:'translateY(0)',opacity:0},
 {opacity:0.5,offset:0.2},
 {transform:'translateY(-110vh)',opacity:0}],
-{duration: document.body.classList.contains("momento")?4000:8000});
+{duration:8000});
 document.body.appendChild(b);
 setTimeout(()=>b.remove(),8000);
 }
-
 function iniciarParticulas(){setInterval(crearBokeh,400);}
 </script>
 
 </body>
 </html>
+
