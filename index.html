@@ -34,6 +34,20 @@ animation:moverFondo 15s infinite alternate ease-in-out;
 opacity:0.8;
 }
 
+#fondo-celebracion{
+position:fixed;
+inset:0;
+background:linear-gradient(135deg, rgba(255,60,90,0.5), rgba(255,150,50,0.4), rgba(120,40,255,0.3));
+z-index:2;
+opacity:0;
+pointer-events:none;
+transition:opacity 2.5s ease-in-out;
+mix-blend-mode:screen;
+filter:blur(20px);
+}
+
+body.celebrando #fondo-celebracion{opacity:1;}
+
 @keyframes moverFondo{
 0%{transform:scale(1) translate(0,0) rotate(0deg);}
 100%{transform:scale(1.2) translate(20px,-30px) rotate(4deg);}
@@ -72,8 +86,7 @@ animation:respirar 4s ease-in-out infinite;
 padding-bottom:15px;
 }
 
-section > h1::after,
-section > h2::after{
+h1::after,h2::after{
 content:"";
 display:block;
 width:80px;
@@ -100,7 +113,7 @@ flex-direction:column;
 align-items:center;
 justify-content:center;
 padding:60px 20px;
-gap:25px;
+gap:20px;
 text-align:center;
 opacity:0;
 transform:translateY(30px);
@@ -152,7 +165,7 @@ filter:brightness(1.1);
 .btn-container{
 display:flex;
 gap:30px;
-margin-top:40px;
+margin-top:30px;
 align-items:center;
 min-height:100px;
 justify-content:center;
@@ -200,6 +213,13 @@ cursor:pointer;
 }
 
 .bokeh{position:fixed;border-radius:50%;pointer-events:none;z-index:5;filter:blur(3px);}
+
+#pregunta h2{
+font-size:3.2rem;
+text-shadow:0 0 25px rgba(255,120,160,0.35);
+margin-top:-10px;
+}
+
 </style>
 </head>
 
@@ -207,6 +227,7 @@ cursor:pointer;
 
 <div class="fade" id="fade"></div>
 <div class="proyector"></div>
+<div id="fondo-celebracion"></div>
 <div class="luz" id="luz"></div>
 
 <section id="start" class="visible">
@@ -218,13 +239,24 @@ cursor:pointer;
 
 <section>
 <h1>Hola amor de mi vida</h1>
+
 <p style="opacity:0.85;max-width:550px;line-height:1.8;font-size:1.1rem;">
 Este pequeño detalle es para ti, porque eres mi mundo entero y quiero hacertelo saber.
 </p>
+
+<div style="opacity:0.8; line-height:1.8; font-style:italic;">
+<p>✨ tu risa es mi sonido favorito</p>
+<p>✨ contigo todo se siente más fácil</p>
+<p>✨ gracias por existir en mi vida</p>
+</div>
+
 </section>
 
 <section>
 <h2>Nuestros momentos</h2>
+<p style="opacity:0.85;max-width:550px;line-height:1.8;font-size:1.1rem;">
+Cada segundo a tu lado es como estar en un sueño del que no quiero despertar.
+</p>
 <div class="gallery">
 <img src="foto1.jpg">
 <img src="foto2.jpg">
@@ -235,13 +267,17 @@ Este pequeño detalle es para ti, porque eres mi mundo entero y quiero hacertelo
 <section>
 <div class="card" onclick="revelarNota(this)">
 <h2>Una nota para ti...</h2>
-<p id="nota-texto" style="font-style:italic;opacity:0.7;margin-top:15px;">(Toca para leer)</p>
+<p id="nota-texto" style="margin-top:15px;line-height:1.7;opacity:0.9;">
+No parece que haya pasado tanto tiempo, pero este es el tercer San Valentín desde que nos conocemos y nunca había estado tan enamorado de ti como hoy lo estoy.
+</p>
 </div>
 </section>
 
 <section id="pregunta">
-<p style="opacity:0.85;">Necesito preguntarte algo importante...</p>
-<h2 style="font-size:3rem;">¿Quieres ser mi San Valentín?</h2>
+<p style="opacity:0.85;max-width:550px;line-height:1.8;font-size:1.1rem;">
+Necesito preguntarte algo importante...
+</p>
+<h2>¿Quieres ser mi San Valentín?</h2>
 <div class="btn-container">
 <button id="yes" class="btn-sanval" onclick="aceptar()">¡Claro que Sí! 💖</button>
 <button id="no" class="btn-sanval" onmouseover="mover(this)">No pipipi 😢</button>
@@ -251,7 +287,8 @@ Este pequeño detalle es para ti, porque eres mi mundo entero y quiero hacertelo
 </div>
 
 <section id="celebracion" style="display:none;height:100vh;">
-<h1 id="textoFinal" style="font-size:4rem;"></h1>
+<h1 id="textoFinal">❤️ Gracias por aceptar ❤️</h1>
+<p style="margin-top:30px;opacity:0.9;">prepárate… esto apenas empieza.</p>
 </section>
 
 <script>
@@ -261,18 +298,30 @@ luz.style.transform=`translate3d(${e.clientX-175}px,${e.clientY-175}px,0)`;
 });
 
 function mostrar(){
+const f=document.getElementById("fade");
+f.style.opacity=1;
+setTimeout(()=>{
 document.getElementById("start").style.display="none";
 document.getElementById("contenido").style.display="block";
+f.style.opacity=0;
 document.querySelectorAll('#contenido section').forEach((sec,i)=>{
 setTimeout(()=>sec.classList.add('visible'),i*200);
 });
 iniciarParticulas();
+},800);
 }
 
 function aceptar(){
+const f=document.getElementById("fade");
+f.style.opacity=1;
+setTimeout(()=>{
 document.getElementById("contenido").style.display="none";
 document.getElementById("celebracion").style.display="flex";
+document.body.classList.add("celebrando");
+document.getElementById("celebracion").classList.add("visible");
+f.style.opacity=0;
 escribir("❤️ ¡SÍ, ACEPTO! ❤️","textoFinal");
+},800);
 }
 
 function escribir(texto,id){
@@ -287,17 +336,17 @@ if(i>=texto.length)clearInterval(inter);
 }
 
 function mover(btn){
-btn.style.position="fixed";
-btn.style.left=Math.random()*80+"vw";
-btn.style.top=Math.random()*80+"vh";
+if(btn.style.position!=="fixed"){btn.style.position="fixed";}
+const padding=70;
+const maxX=window.innerWidth-btn.clientWidth-padding;
+const maxY=window.innerHeight-btn.clientHeight-padding;
+btn.style.left=Math.max(padding,Math.floor(Math.random()*maxX))+"px";
+btn.style.top=Math.max(padding,Math.floor(Math.random()*maxY))+"px";
 }
 
 function revelarNota(card){
 const texto=card.querySelector('#nota-texto');
-texto.innerText='No parece que haya pasado tanto tiempo, pero este es el tercer San valentin desde que nos conocemos y nunca había estado tan enamorado de ti como hoy lo estoy.';
-texto.style.fontStyle="normal";
 texto.style.fontSize="1.2rem";
-texto.style.opacity=1;
 }
 
 function crearBokeh(){
@@ -309,10 +358,7 @@ b.style.height=size;
 b.style.left=Math.random()*100+"vw";
 b.style.top="105vh";
 b.style.background="rgba(255,255,255,0.1)";
-b.animate([{transform:'translateY(0)',opacity:0},
-{opacity:0.5,offset:0.2},
-{transform:'translateY(-110vh)',opacity:0}],
-{duration:8000});
+b.animate([{transform:'translateY(0)',opacity:0},{opacity:0.5,offset:0.2},{transform:'translateY(-110vh)',opacity:0}],{duration:8000});
 document.body.appendChild(b);
 setTimeout(()=>b.remove(),8000);
 }
@@ -321,4 +367,3 @@ function iniciarParticulas(){setInterval(crearBokeh,400);}
 
 </body>
 </html>
-
