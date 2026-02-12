@@ -82,10 +82,16 @@ background:linear-gradient(to bottom,#ffffff 40%,#ffcce0 100%);
 -webkit-text-fill-color:transparent;
 filter:drop-shadow(0 0 10px rgba(255,100,150,0.3));
 letter-spacing:1px;
+animation:respirar 4s ease-in-out infinite;
 }
 
 h1{font-size:clamp(2.8rem,5vw,4rem);}
 h2{font-size:clamp(2.2rem,4vw,3rem);}
+
+@keyframes respirar{
+0%,100%{transform:scale(1);}
+50%{transform:scale(1.02);}
+}
 
 section{
 width:100%;
@@ -103,15 +109,35 @@ transition:1s;
 z-index:25;
 position:relative;
 }
+  
+section::after{
+content:"";
+width:120px;
+height:2px;
+background:linear-gradient(90deg,transparent,rgba(255,100,150,0.6),transparent);
+margin-top:10px;
+opacity:0.6;
+}
+
 
 section.visible{
 opacity:1;
 transform:translateY(0);
+box-shadow:0 0 40px rgba(255,80,140,0.05);
 }
 
 #start{height:100vh;gap:40px;}
 
-.gallery{display:flex;flex-wrap:wrap;justify-content:center;gap:15px;}
+.gallery{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:15px;
+background:rgba(255,255,255,0.02);
+padding:20px;
+border-radius:20px;
+backdrop-filter:blur(5px);
+}
 
 .gallery img{
 width:220px;
@@ -173,6 +199,11 @@ border-radius:50px;
 border:1px solid rgba(255,255,255,0.2);
 cursor:pointer;
 }
+  
+.btn-abrir:hover{
+transform:scale(1.1);
+box-shadow:0 0 35px rgba(255,120,160,0.6);
+}
 
 .card{
 background:rgba(255,255,255,0.04);
@@ -216,10 +247,10 @@ Este pequeño detalle es para ti, porque eres mi mundo entero y quiero hacertelo
 </section>
 
 <section>
+<h2>Nuestros momentos</h2>
 <p style="opacity:0.85;max-width:550px;line-height:1.8;font-size:1.1rem;">
 Cada segundo a tu lado es como estar en un sueño del que no quiero despertar.
 </p>
-<h2>Nuestros momentos</h2>
 <div class="gallery">
 <img src="foto1.jpg">
 <img src="foto2.jpg">
