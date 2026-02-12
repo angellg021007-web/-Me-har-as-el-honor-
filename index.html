@@ -202,7 +202,7 @@ border-radius:50px;
 border:1px solid rgba(255,255,255,0.2);
 cursor:pointer;
 }
-  
+
 .btn-abrir:hover{
 transform:scale(1.1);
 box-shadow:0 0 35px rgba(255,120,160,0.6);
@@ -234,11 +234,13 @@ animation: aparecerTitulo 1.8s ease forwards;
 0%{opacity:0; transform:translateY(30px);}
 100%{opacity:1; transform:translateY(0);}
 }
-
 </style>
 </head>
 
 <body>
+
+<!-- AUDIO -->
+<audio id="musica" src="musica.mp3" loop></audio>
 
 <div class="fade" id="fade"></div>
 <div class="proyector"></div>
@@ -254,17 +256,15 @@ animation: aparecerTitulo 1.8s ease forwards;
 
 <section>
 <h1>Hola, amor de mi vida</h1>
-
 <p style="opacity:0.85;max-width:550px;line-height:1.8;font-size:1.1rem;">
 Este pequeño detalle es para ti, porque eres mi mundo entero y quiero hacertelo saber.
 </p>
- 
+
 <div style="opacity:0.8; line-height:1.8; font-style:italic;">
 <p>✨ Eres la causa de mi locura.</p>
 <p>✨Tus ojos son mi perdición.</p>
 <p>✨ Mi corazón se acelera por ti.</p>
 </div>
-
 </section>
 
 <section>
@@ -299,19 +299,22 @@ Necesito preguntarte algo importante...
 
 </div>
 
-<section id="celebracion" style="display:none;height:150vh;">
+<section id="celebracion" style="display:none;height:100vh;">
 <h1 id="textoFinal"></h1>
-<p style="margin-top:30px;opacity:0.9;">Que bueno que dijiste que si, porque no había otra opción.</p>
+<p style="margin-top:30px;opacity:0.9;">Que bueno que dijiste que si, porque no había otra opción 😈.</p>
 <p style="margin-top:30px;opacity:0.9;">Prepárate… tenemos una cita, mi amor.</p>
 </section>
 
 <script>
 const luz=document.getElementById("luz");
+const musica=document.getElementById("musica");
+
 document.addEventListener("mousemove",(e)=>{
 luz.style.transform=`translate3d(${e.clientX-175}px,${e.clientY-175}px,0)`;
 });
 
 function mostrar(){
+musica.play(); // 🔊 REPRODUCIR MUSICA AL ABRIR
 const f=document.getElementById("fade");
 f.style.opacity=1;
 setTimeout(()=>{
@@ -334,7 +337,7 @@ document.getElementById("celebracion").style.display="flex";
 document.body.classList.add("celebrando");
 document.getElementById("celebracion").classList.add("visible");
 f.style.opacity=0;
-escribir("❤️ ¡SÍ, ACEPTO! ❤️","textoFinal");
+escribir("¡SÍ, ACEPTO!","textoFinal");
 setInterval(crearFlores,150);
 },800);
 }
